@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Gallery - AI</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery-container {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-header p {
+            color: #ff69b4;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ff1493;
+            background: rgba(255, 20, 147, 0.1);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.6);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover img {
+            filter: brightness(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 1rem;
+            color: #ff69b4;
+            opacity: 0;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .gallery-item:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .image-overlay p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .action-section {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 20, 147, 0.1);
+            border-radius: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+        }
+
+        .btn-secondary {
+            background: rgba(100, 100, 100, 0.5);
+            color: #fff;
+            border: 2px solid #666;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(100, 100, 100, 0.7);
+            border-color: #ff1493;
+        }
+
+        .info-box {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            color: #90ee90;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gallery-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        .stat-box {
+            background: rgba(255, 20, 147, 0.2);
+            border: 2px solid #ff1493;
+            border-radius: 10px;
+            padding: 1.5rem;
+            color: #ff69b4;
+        }
+
+        .stat-box .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff1493;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .gallery-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .action-section {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <div class="gallery-header">
+            <h1>✨ Sample Gallery</h1>
+            <p>See what you can create with AI</p>
+        </div>
+
+        <div class="info-box">
+            🎨 These are AI-generated sample images created with our advanced models. Your results will vary based on your prompts!
+        </div>
+
+        <div class="gallery-stats">
+            <div class="stat-box">
+                <div class="number">30+</div>
+                <div class="label">Sample Images</div>
+            </div>
+            <div class="stat-box">
+                <div class="number">4K</div>
+                <div class="label">Quality</div>
+            </div>
+            <div class="stat-box">
+                <div class="number">⚡</div>
+                <div class="label">Fast Generate</div>
+            </div>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Images will be loaded here -->
+        </div>
+
+        <div class="action-section">
+            <button class="btn btn-primary" onclick="goToPayment()">
+                💳 Get Started - Choose Plan
+            </button>
+            <button class="btn btn-secondary" id="generatorBtn" style="display: none;" onclick="window.location.href='main.html'">
+                → Back to Generator
+            </button>
+            <button class="btn btn-secondary" onclick="logout()">
+                ← Logout
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+        }
+
+        // Sample images array
+        const sampleImages = [
+            'https://i.ibb.co/LD5jynqg/Screenshot-20260201-235002-Instagram.png',
+            'https://i.ibb.co/xKNqNc9m/Screenshot-20260201-235009-Instagram.png',
+            'https://i.ibb.co/XfbPHHp2/Screenshot-20260201-235015-Instagram.png',
+            'https://i.ibb.co/SXD2VbBz/Screenshot-20260201-235024-Instagram.png',
+            'https://i.ibb.co/gbW5Tryd/Screenshot-20260201-235029-Instagram.png',
+            'https://i.ibb.co/jkRsxVqj/Screenshot-20260201-235055-Instagram.png',
+            'https://i.ibb.co/nNhSpKPS/Screenshot-20260201-235101-Instagram.png',
+            'https://i.ibb.co/B5SwxzHc/Screenshot-20260201-235110-Instagram.png',
+            'https://i.ibb.co/BVpfV11y/Screenshot-20260201-235118-Instagram.png',
+            'https://i.ibb.co/gb65h5Qm/Screenshot-20260201-235156-Instagram.png',
+            'https://i.ibb.co/4Z2RB5J1/Screenshot-20260201-235203-Instagram.png',
+            'https://i.ibb.co/nN0HHj22/Screenshot-20260201-235213-Instagram.png',
+            'https://i.ibb.co/0VhWVKG1/Screenshot-20260201-235224-Instagram.png',
+            'https://i.ibb.co/FkYjg1HQ/Screenshot-20260201-235234-Instagram.png',
+            'https://i.ibb.co/1fD6LhMK/Screenshot-20260201-235309-Instagram.png',
+            'https://i.ibb.co/6Jp0P5v0/Screenshot-20260201-235425-Instagram.png',
+            'https://i.ibb.co/WNgjcH74/Screenshot-20260201-235442-Instagram.png',
+            'https://i.ibb.co/Cs2L8khw/Screenshot-20260201-235513-Instagram.png',
+            'https://i.ibb.co/twzfBct2/Screenshot-20260201-235652-Instagram.png',
+            'https://i.ibb.co/93fXb63q/Screenshot-20260201-235701-Instagram.png',
+            'https://i.ibb.co/v6FnTNz2/Screenshot-20260201-235717-Instagram.png',
+            'https://i.ibb.co/N2ShLxHC/Screenshot-20260202-000107-Instagram.png',
+            'https://i.ibb.co/39pywjBj/Screenshot-20260202-000122-Instagram.png',
+            'https://i.ibb.co/3mQK6YTS/Screenshot-20260202-000455-Instagram.png',
+            'https://i.ibb.co/chvkgdby/Screenshot-20260202-000511-Instagram.png',
+            'https://i.ibb.co/fdw34ZXQ/Screenshot-20260202-000525-Instagram.png',
+            'https://i.ibb.co/FbM98XbZ/Screenshot-20260202-000546-Instagram.png',
+            'https://i.ibb.co/QFLz1b3V/Screenshot-20260202-000606-Instagram.png',
+            'https://i.ibb.co/BK2ywLBn/Screenshot-20260202-000623-Instagram.png',
+            'https://i.ibb.co/Rk00x3bK/Screenshot-20260202-001416-Instagram.png',
+            'https://i.ibb.co/F4B1t8HD/Screenshot-20260202-001446-Instagram.png',
+            'https://i.ibb.co/WN0c5dZY/Screenshot-20260202-001922-Instagram.png',
+            'https://i.ibb.co/PGvf09Wt/Screenshot-20260202-002032-Instagram.png',
+            'https://i.ibb.co/N6Jz7VpS/Screenshot-20260202-002059-Instagram.png',
+            'https://i.ibb.co/xSQfQy11/Screenshot-20260202-002159-Instagram.png'
+        ];
+
+        // Load gallery and check payment status
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if user has verified payment
+            try {
+                const token = localStorage.getItem('token');
+                const statusRes = await fetch('/api/user/payment-status', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const statusData = await statusRes.json();
+                
+                if (statusData.hasVerifiedPayment) {
+                    // Show back to generator button
+                    document.getElementById('generatorBtn').style.display = 'block';
+                    document.querySelector('.btn-primary').style.display = 'none';
+                }
+            } catch (err) {
+                console.error('Error checking payment status:', err);
+            }
+
+            // Load gallery images
+            const galleryGrid = document.getElementById('galleryGrid');
+            
+            sampleImages.forEach((imgUrl, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `
+                    <img src="${imgUrl}" alt="Sample image ${index + 1}" loading="lazy">
+                    <div class="image-overlay">
+                        <p>AI Generated Sample #${index + 1}</p>
+                    </div>
+                `;
+                galleryGrid.appendChild(item);
+            });
+        });
+
+        function goToPayment() {
+            window.location.href = 'payment.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('paymentId');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

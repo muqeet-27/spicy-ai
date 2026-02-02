@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main - MuqeetAI</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .generator {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 20, 147, 0.1);
+            border-radius: 15px;
+            border: 2px solid #ff1493;
+        }
+
+        .form-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ff69b4;
+            font-weight: bold;
+        }
+
+        .prompt-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ff1493;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: #ff69b4;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            border: 2px dashed #ff1493;
+            border-radius: 8px;
+            background: rgba(255, 20, 147, 0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #ff69b4;
+            font-weight: bold;
+        }
+
+        .file-input-label:hover {
+            background: rgba(255, 20, 147, 0.15);
+            border-color: #ff69b4;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-preview {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .file-preview.active {
+            display: block;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            object-fit: cover;
+            border: 1px solid #999;
+        }
+
+        .preview-info {
+            flex: 1;
+            color: #90ee90;
+        }
+
+        .preview-info .filename {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .preview-info .filesize {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .remove-file-btn {
+            background: #d32f2f;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .remove-file-btn:hover {
+            background: #f44336;
+            transform: scale(1.05);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container main-container">
+        <header>
+            <h1>Undress AI Generator</h1>
+            <p>Generate nude images with AI</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button onclick="window.location.href='gallery.html'" style="background: #ff69b4; border: none; color: white; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer;">🎨 View Gallery</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </header>
+        <div class="generator">
+            <form id="genForm">
+                <div class="form-section">
+                    <label for="prompt">📝 Enter Your Prompt</label>
+                    <input id="prompt" type="text" class="prompt-input" placeholder="Enter image prompt (e.g., futuristic logo)" required>
+                </div>
+
+                <div class="form-section">
+                    <label>📎 Attach Reference Image (Optional)</label>
+                    <div class="file-input-wrapper">
+                        <label for="fileInput" class="file-input-label">
+                            📷 Click to upload or drag and drop
+                        </label>
+                        <input id="fileInput" type="file" accept="image/*" multiple>
+                    </div>
+                    <div id="filePreview" class="file-preview"></div>
+                </div>
+
+                <button type="submit" class="submit-btn">✨ Generate Image</button>
+            </form>
+            <div id="imageContainer" class="image-output" style="display: none;">
+                <p>Generated Image:</p>
+                <img id="generatedImg" alt="AI Generated Image">
+                <button onclick="downloadImg()">Download</button>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

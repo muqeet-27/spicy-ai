@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - MuqeetAI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a0000 50%, #ff1493 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .admin-container {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.3);
+            max-width: 1400px;
+            width: 95%;
+            margin: 2rem auto;
+            border: 2px solid #ff1493;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ff1493;
+        }
+
+        .admin-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .refresh-btn, .home-btn {
+            padding: 0.8rem 1.5rem;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .home-btn {
+            background: #2196F3;
+        }
+
+        .refresh-btn:hover, .home-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 20, 147, 0.1);
+            border: 2px solid #ff1493;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #ff69b4;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            color: #ff1493;
+            font-weight: bold;
+        }
+
+        .customers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .customers-header h2 {
+            color: #ff69b4;
+            font-size: 1.5rem;
+        }
+
+        .search-box {
+            padding: 0.8rem 1.2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #ff1493;
+            border-radius: 8px;
+            color: #fff;
+            width: 250px;
+        }
+
+        .search-box::placeholder {
+            color: #999;
+        }
+
+        .customers-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .customers-table th {
+            background: rgba(255, 20, 147, 0.2);
+            color: #ff69b4;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #ff1493;
+            font-weight: bold;
+        }
+
+        .customers-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 20, 147, 0.2);
+            color: #ccc;
+        }
+
+        .customers-table tr:hover {
+            background: rgba(255, 20, 147, 0.05);
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffd54f;
+            border: 1px solid #ffd54f;
+        }
+
+        .status-verified {
+            background: rgba(76, 175, 80, 0.2);
+            color: #90ee90;
+            border: 1px solid #90ee90;
+        }
+
+        .status-rejected {
+            background: rgba(211, 47, 47, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .verify-btn, .reject-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .verify-btn {
+            background: #4caf50;
+            color: white;
+        }
+
+        .verify-btn:hover {
+            background: #66bb6a;
+            transform: scale(1.05);
+        }
+
+        .reject-btn {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background: #f44336;
+            transform: scale(1.05);
+        }
+
+        .no-data {
+            text-align: center;
+            color: #999;
+            padding: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .loading {
+            text-align: center;
+            color: #ff69b4;
+            padding: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .error-message {
+            background: rgba(211, 47, 47, 0.2);
+            border: 2px solid #d32f2f;
+            color: #ff6b6b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            color: #90ee90;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 1rem;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .customers-table {
+                font-size: 0.9rem;
+            }
+
+            .customers-table th, .customers-table td {
+                padding: 0.7rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>💳 Admin Dashboard</h1>
+            <div class="header-buttons">
+                <button class="refresh-btn" onclick="loadPayments()">🔄 Refresh</button>
+                <a href="index.html" class="home-btn">🏠 Home</a>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage"></div>
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="stats-container" id="statsContainer">
+            <div class="stat-card">
+                <h3>Total Payments</h3>
+                <div class="value" id="totalPayments">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <div class="value" id="pendingCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Verified</h3>
+                <div class="value" id="verifiedCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Rejected</h3>
+                <div class="value" id="rejectedCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Revenue</h3>
+                <div class="value" id="totalRevenue">₹0</div>
+            </div>
+        </div>
+
+        <div class="customers-header">
+            <h2>📋 Payment Records</h2>
+            <input type="text" class="search-box" id="searchBox" placeholder="Search by name or email..." onkeyup="filterTable()">
+        </div>
+
+        <div id="paymentsContainer">
+            <div class="loading">Loading payment records...</div>
+        </div>
+    </div>
+
+    <script>
+        let allPayments = [];
+
+        // Load payments on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Admin dashboard loaded');
+            // First check if server is reachable
+            fetch('/api/health')
+                .then(res => {
+                    console.log('✅ Server is reachable');
+                    return loadPayments();
+                })
+                .catch(err => {
+                    console.error('❌ Server not reachable:', err);
+                    document.getElementById('errorMessage').textContent = '❌ Server connection failed. Make sure the server is running on port 3000';
+                    document.getElementById('errorMessage').style.display = 'block';
+                });
+        });
+
+        function loadPayments() {
+            const container = document.getElementById('paymentsContainer');
+            container.innerHTML = '<div class="loading">Loading payment records...</div>';
+
+            console.log('Fetching from: /api/admin/payments/all');
+            fetch('/api/admin/payments/all')
+                .then(res => {
+                    console.log('Response status:', res.status);
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(payments => {
+                    console.log('Payments received:', payments);
+                    allPayments = payments;
+                    displayPayments(payments);
+                    updateStats(payments);
+                })
+                .catch(err => {
+                    console.error('Error loading payments:', err);
+                    document.getElementById('errorMessage').textContent = 'Error loading payments: ' + err.message;
+                    document.getElementById('errorMessage').style.display = 'block';
+                    container.innerHTML = '<div class="error-message" style="display: block;">Error loading payments: ' + err.message + '</div>';
+                });
+        }
+
+        function displayPayments(payments) {
+            const container = document.getElementById('paymentsContainer');
+
+            if (payments.length === 0) {
+                container.innerHTML = '<div class="no-data">No payment records found</div>';
+                return;
+            }
+
+            let html = `
+                <table class="customers-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Plan</th>
+                            <th>Amount</th>
+                            <th>Transaction ID</th>
+                            <th>UTR Number</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+            `;
+
+            payments.forEach(payment => {
+                const date = new Date(payment.createdAt).toLocaleDateString('en-IN');
+                const statusClass = `status-${payment.status}`;
+                const actionButtons = payment.status === 'pending' ? `
+                    <div class="action-buttons">
+                        <button class="verify-btn" onclick="updatePaymentStatus('${payment._id}', 'verified')">✓ Verify</button>
+                        <button class="reject-btn" onclick="updatePaymentStatus('${payment._id}', 'rejected')">✗ Reject</button>
+                    </div>
+                ` : '<span style="color: #999;">-</span>';
+
+                html += `
+                    <tr>
+                        <td><strong>${payment.name}</strong></td>
+                        <td>${payment.email}</td>
+                        <td>${payment.plan}</td>
+                        <td style="color: #4caf50; font-weight: bold;">₹${payment.amount}</td>
+                        <td><code style="background: rgba(0,0,0,0.5); padding: 0.3rem 0.6rem; border-radius: 4px;">${payment.transactionId}</code></td>
+                        <td><code style="background: rgba(0,0,0,0.5); padding: 0.3rem 0.6rem; border-radius: 4px;">${payment.utrNumber}</code></td>
+                        <td><span class="status-badge ${statusClass}">${payment.status.toUpperCase()}</span></td>
+                        <td>${date}</td>
+                        <td>${actionButtons}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function updateStats(payments) {
+            const total = payments.length;
+            const pending = payments.filter(p => p.status === 'pending').length;
+            const verified = payments.filter(p => p.status === 'verified').length;
+            const rejected = payments.filter(p => p.status === 'rejected').length;
+            const totalRevenue = payments.reduce((sum, p) => sum + p.amount, 0);
+
+            document.getElementById('totalPayments').textContent = total;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('verifiedCount').textContent = verified;
+            document.getElementById('rejectedCount').textContent = rejected;
+            document.getElementById('totalRevenue').textContent = '₹' + totalRevenue.toLocaleString('en-IN');
+        }
+
+        function updatePaymentStatus(paymentId, status) {
+            const endpoint = status === 'verified' ? '/api/admin/verify-payment' : '/api/admin/reject-payment';
+
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ paymentId, status })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.message) {
+                    document.getElementById('successMessage').textContent = '✅ ' + data.message;
+                    document.getElementById('successMessage').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 3000);
+                    loadPayments();
+                }
+            })
+            .catch(err => {
+                alert('Error updating payment: ' + err.message);
+            });
+        }
+
+        function filterTable() {
+            const searchInput = document.getElementById('searchBox').value.toLowerCase();
+            const tableBody = document.getElementById('tableBody');
+
+            if (!tableBody) return;
+
+            const rows = tableBody.getElementsByTagName('tr');
+            for (let row of rows) {
+                const name = row.cells[0].textContent.toLowerCase();
+                const email = row.cells[1].textContent.toLowerCase();
+
+                if (name.includes(searchInput) || email.includes(searchInput)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

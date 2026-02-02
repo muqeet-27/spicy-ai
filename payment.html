@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - MuqeetAI</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .payment-container {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.3);
+            max-width: 900px;
+            width: 90%;
+            margin: 2rem auto;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .payment-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .plan-card {
+            background: rgba(255, 20, 147, 0.1);
+            border: 2px solid #ff1493;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .plan-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+        }
+
+        .plan-card.selected {
+            background: rgba(255, 20, 147, 0.3);
+            border-color: #ff69b4;
+        }
+
+        .plan-card h3 {
+            font-size: 1.5rem;
+            color: #ff69b4;
+            margin-bottom: 1rem;
+        }
+
+        .plan-card .price {
+            font-size: 2.5rem;
+            color: #ff1493;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-card .duration {
+            color: #999;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .plan-card .radio {
+            margin-top: 1rem;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 20, 147, 0.1);
+            border-radius: 15px;
+        }
+
+        .qr-section h2 {
+            color: #ff69b4;
+            margin-bottom: 1rem;
+        }
+
+        .qr-section img {
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            color: #90ee90;
+            font-size: 0.9rem;
+        }
+
+        .payment-form {
+            background: rgba(255, 20, 147, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ff69b4;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ff1493;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff69b4;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            color: #90ee90;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message {
+            background: rgba(211, 47, 47, 0.2);
+            border: 2px solid #d32f2f;
+            color: #ff6b6b;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: #ff1493;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #ff69b4;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1>Choose Your Plan</h1>
+            <p style="color: #ff69b4;">Unlock AI Image Generation</p>
+        </div>
+
+        <div class="info-box">
+            ℹ️ All models are the same and take the same time to generate images. Choose based on your usage needs.
+        </div>
+
+        <form id="paymentForm">
+            <!-- Plans -->
+            <div class="plans-grid">
+                <div class="plan-card" onclick="selectPlan(this, '1picture', 50)">
+                    <h3>Single Image</h3>
+                    <div class="price">₹50</div>
+                    <div class="duration">Generate 1 Picture</div>
+                    <input type="radio" name="plan" value="1picture" required>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this, '2weeks', 100)">
+                    <h3>Basic</h3>
+                    <div class="price">₹100</div>
+                    <div class="duration">Valid for 2 Weeks</div>
+                    <input type="radio" name="plan" value="2weeks" required>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this, '4months', 500)">
+                    <h3>Standard</h3>
+                    <div class="price">₹500</div>
+                    <div class="duration">Valid for 4 Months</div>
+                    <input type="radio" name="plan" value="4months" required>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this, '12months', 1000)">
+                    <h3>Premium</h3>
+                    <div class="price">₹1000</div>
+                    <div class="duration">Valid for 12 Months</div>
+                    <input type="radio" name="plan" value="12months" required>
+                </div>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="qr-section">
+                <h2>Scan to Pay</h2>
+                <img src="https://i.postimg.cc/TysvYknV/gateway.jpg" alt="Payment QR Code">
+                <p style="color: #999; font-size: 0.9rem;">Scan this QR code to make your payment</p>
+            </div>
+
+            <!-- Payment Details Form -->
+            <div class="payment-form">
+                <h2 style="color: #ff69b4; margin-bottom: 1.5rem;">Payment Details</h2>
+                
+                <div class="form-group">
+                    <label>Transaction ID *</label>
+                    <input type="text" id="transactionId" placeholder="Enter your transaction ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label>UTR Number *</label>
+                    <input type="text" id="utrNumber" placeholder="Enter your UTR number" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Payment Details</button>
+            </div>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            ✅ Payment submitted successfully!<br>
+            <strong>This takes maximum 1 working day to verify payment.</strong><br>
+            You'll receive an email confirmation once verified.
+        </div>
+
+        <div class="payment-status" id="paymentStatus" style="display: none;">
+            <div style="background: rgba(76, 175, 80, 0.2); border: 2px solid #4caf50; border-radius: 10px; padding: 1.5rem; text-align: center; color: #90ee90;">
+                <h3 style="margin-bottom: 1rem;">🎉 Payment Verified!</h3>
+                <p>Your payment has been verified. Redirecting you to the main page...</p>
+            </div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <button class="back-btn" onclick="logout()">← Logout</button>
+        </div>
+    </div>
+
+    <script src="payment.js"></script>
+</body>
+</html>
