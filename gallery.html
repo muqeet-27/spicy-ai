@@ -247,43 +247,43 @@
             window.location.href = 'index.html';
         }
 
-        // Sample images array
-       const sampleImages = [
-            'https://i.ibb.co/hSh4HCx/Screenshot-20260201-235002-Instagram.png',
-            'https://i.ibb.co/HLdw1qff/Screenshot-20260201-235009-Instagram.png',
-            'https://i.ibb.co/YFX2L41t/Screenshot-20260201-235015-Instagram.png',
-            'https://i.ibb.co/V8c6fSg/Screenshot-20260201-235024-Instagram.png',
-            'https://i.ibb.co/fYTmtH0k/Screenshot-20260201-235029-Instagram.png',
-            'https://i.ibb.co/d0y1br6r/Screenshot-20260201-235055-Instagram.png',
-            'https://i.ibb.co/84s0jccV/Screenshot-20260201-235101-Instagram.png',
-            'https://i.ibb.co/XZTQH5Ww/Screenshot-20260201-235110-Instagram.png',
-            'https://i.ibb.co/NRvdJT2/Screenshot-20260201-235118-Instagram.png',
-            'https://i.ibb.co/RkNrmWbT/Screenshot-20260201-235156-Instagram.png',
-            'https://i.ibb.co/xStGJ9j6/Screenshot-20260201-235203-Instagram.png',
-            'https://i.ibb.co/rTf87Lr/Screenshot-20260201-235213-Instagram.png',
-            'https://i.ibb.co/2xCyGg1/Screenshot-20260201-235224-Instagram.png',
-            'https://i.ibb.co/QjrHR5R7/Screenshot-20260201-235234-Instagram.png',
-            'https://i.ibb.co/TDbv5D1H/Screenshot-20260201-235309-Instagram.png',
-            'https://i.ibb.co/NdqL1DjY/Screenshot-20260201-235425-Instagram.png',
-            'https://i.ibb.co/C54wnSmf/Screenshot-20260201-235442-Instagram.png',
-            'https://i.ibb.co/0yB1v48r/Screenshot-20260201-235513-Instagram.png',
-            'https://i.ibb.co/5Xf4V616/Screenshot-20260201-235652-Instagram.png',
-            'https://i.ibb.co/WpF5ht8r/Screenshot-20260201-235701-Instagram.png',
-            'https://i.ibb.co/PZkYzmWz/Screenshot-20260201-235717-Instagram.png',
-            'https://i.ibb.co/TDWCnr4r/Screenshot-20260202-000107-Instagram.png',
-            'https://i.ibb.co/SD1dGKt8/Screenshot-20260202-000122-Instagram.png',
-            'https://i.ibb.co/Fb2bdn8q/Screenshot-20260202-000455-Instagram.png',
-            'https://i.ibb.co/60k1STQ7/Screenshot-20260202-000511-Instagram.png',
-            'https://i.ibb.co/xSDKkGkm/Screenshot-20260202-000525-Instagram.png',
-            'https://i.ibb.co/Kc0bZTRm/Screenshot-20260202-000546-Instagram.png',
-            'https://i.ibb.co/VWdfsqjH/Screenshot-20260202-000606-Instagram.png',
-            'https://i.ibb.co/7xdjSYNY/Screenshot-20260202-000623-Instagram.png',
-            'https://i.ibb.co/pj098GYT/Screenshot-20260202-001416-Instagram.png',
-            'https://i.ibb.co/NdVtSwm0/Screenshot-20260202-001446-Instagram.png',
-            'https://i.ibb.co/fzgNyBxW/Screenshot-20260202-001922-Instagram.png',
-            'https://i.ibb.co/XrKHHsX1/Screenshot-20260202-002032-Instagram.png',
-            'https://i.ibb.co/Tx9rbFPj/Screenshot-20260202-002059-Instagram.png',
-            'https://i.ibb.co/pv0smv12/Screenshot-20260202-002159-Instagram.png'
+        // Sample images array with gallery links
+        const sampleImages = [
+            { src: 'https://i.ibb.co/hSh4HCx/Screenshot-20260201-235002-Instagram.png', link: 'https://ibb.co/YxY18b4' },
+            { src: 'https://i.ibb.co/HLdw1qff/Screenshot-20260201-235009-Instagram.png', link: 'https://ibb.co/gbVqHJLL' },
+            { src: 'https://i.ibb.co/YFX2L41t/Screenshot-20260201-235015-Instagram.png', link: 'https://ibb.co/RkN2DGsC' },
+            { src: 'https://i.ibb.co/V8c6fSg/Screenshot-20260201-235024-Instagram.png', link: 'https://ibb.co/QG30yNP' },
+            { src: 'https://i.ibb.co/fYTmtH0k/Screenshot-20260201-235029-Instagram.png', link: 'https://ibb.co/8DQF298r' },
+            { src: 'https://i.ibb.co/d0y1br6r/Screenshot-20260201-235055-Instagram.png', link: 'https://ibb.co/zhwj8rbr' },
+            { src: 'https://i.ibb.co/84s0jccV/Screenshot-20260201-235101-Instagram.png', link: 'https://ibb.co/4gt7jddx' },
+            { src: 'https://i.ibb.co/XZTQH5Ww/Screenshot-20260201-235110-Instagram.png', link: 'https://ibb.co/QFGg0HJ5' },
+            { src: 'https://i.ibb.co/NRvdJT2/Screenshot-20260201-235118-Instagram.png', link: 'https://ibb.co/8kCLfYg' },
+            { src: 'https://i.ibb.co/RkNrmWbT/Screenshot-20260201-235156-Instagram.png', link: 'https://ibb.co/fz9657Fd' },
+            { src: 'https://i.ibb.co/xStGJ9j6/Screenshot-20260201-235203-Instagram.png', link: 'https://ibb.co/tMTc8jsD' },
+            { src: 'https://i.ibb.co/rTf87Lr/Screenshot-20260201-235213-Instagram.png', link: 'https://ibb.co/zjH9nLv' },
+            { src: 'https://i.ibb.co/2xCyGg1/Screenshot-20260201-235224-Instagram.png', link: 'https://ibb.co/H6bV5nf' },
+            { src: 'https://i.ibb.co/QjrHR5R7/Screenshot-20260201-235234-Instagram.png', link: 'https://ibb.co/KzFsk1kc' },
+            { src: 'https://i.ibb.co/TDbv5D1H/Screenshot-20260201-235309-Instagram.png', link: 'https://ibb.co/dsLWystQ' },
+            { src: 'https://i.ibb.co/NdqL1DjY/Screenshot-20260201-235425-Instagram.png', link: 'https://ibb.co/cS9NbfFT' },
+            { src: 'https://i.ibb.co/C54wnSmf/Screenshot-20260201-235442-Instagram.png', link: 'https://ibb.co/5WC15JGP' },
+            { src: 'https://i.ibb.co/0yB1v48r/Screenshot-20260201-235513-Instagram.png', link: 'https://ibb.co/xqmwd9P6' },
+            { src: 'https://i.ibb.co/5Xf4V616/Screenshot-20260201-235652-Instagram.png', link: 'https://ibb.co/vCKq8HcH' },
+            { src: 'https://i.ibb.co/WpF5ht8r/Screenshot-20260201-235701-Instagram.png', link: 'https://ibb.co/VpD91mnF' },
+            { src: 'https://i.ibb.co/PZkYzmWz/Screenshot-20260201-235717-Instagram.png', link: 'https://ibb.co/SXSx7sm7' },
+            { src: 'https://i.ibb.co/TDWCnr4r/Screenshot-20260202-000107-Instagram.png', link: 'https://ibb.co/WNVTdsks' },
+            { src: 'https://i.ibb.co/SD1dGKt8/Screenshot-20260202-000122-Instagram.png', link: 'https://ibb.co/nqVntD7v' },
+            { src: 'https://i.ibb.co/Fb2bdn8q/Screenshot-20260202-000455-Instagram.png', link: 'https://ibb.co/4ZzZ0J4g' },
+            { src: 'https://i.ibb.co/60k1STQ7/Screenshot-20260202-000511-Instagram.png', link: 'https://ibb.co/0yxFL65R' },
+            { src: 'https://i.ibb.co/xSDKkGkm/Screenshot-20260202-000525-Instagram.png', link: 'https://ibb.co/Rp9GFPFh' },
+            { src: 'https://i.ibb.co/Kc0bZTRm/Screenshot-20260202-000546-Instagram.png', link: 'https://ibb.co/bjWQhcq7' },
+            { src: 'https://i.ibb.co/VWdfsqjH/Screenshot-20260202-000606-Instagram.png', link: 'https://ibb.co/ynDHrQfh' },
+            { src: 'https://i.ibb.co/7xdjSYNY/Screenshot-20260202-000623-Instagram.png', link: 'https://ibb.co/PsvFrmzm' },
+            { src: 'https://i.ibb.co/pj098GYT/Screenshot-20260202-001416-Instagram.png', link: 'https://ibb.co/VYjPZrfG' },
+            { src: 'https://i.ibb.co/NdVtSwm0/Screenshot-20260202-001446-Instagram.png', link: 'https://ibb.co/rR7FsncB' },
+            { src: 'https://i.ibb.co/fzgNyBxW/Screenshot-20260202-001922-Instagram.png', link: 'https://ibb.co/S4jmMW3g' },
+            { src: 'https://i.ibb.co/XrKHHsX1/Screenshot-20260202-002032-Instagram.png', link: 'https://ibb.co/nNYppcr9' },
+            { src: 'https://i.ibb.co/Tx9rbFPj/Screenshot-20260202-002059-Instagram.png', link: 'https://ibb.co/0RHQFdY4' },
+            { src: 'https://i.ibb.co/pv0smv12/Screenshot-20260202-002159-Instagram.png', link: 'https://ibb.co/wN0bvNdy' }
         ];
 
         // Load gallery and check payment status
@@ -311,16 +311,22 @@
             // Load gallery images
             const galleryGrid = document.getElementById('galleryGrid');
             
-            sampleImages.forEach((imgUrl, index) => {
+            sampleImages.forEach((imageData, index) => {
+                const link = document.createElement('a');
+                link.href = imageData.link;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
                 item.innerHTML = `
-                    <img src="${imgUrl}" alt="Sample image ${index + 1}" loading="lazy">
+                    <img src="${imageData.src}" alt="Sample image ${index + 1}" loading="lazy">
                     <div class="image-overlay">
                         <p>AI Generated Sample #${index + 1}</p>
                     </div>
                 `;
-                galleryGrid.appendChild(item);
+                link.appendChild(item);
+                galleryGrid.appendChild(link);
             });
         });
 
